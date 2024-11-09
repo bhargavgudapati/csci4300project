@@ -1,0 +1,56 @@
+body {
+    background-image: url('../images/books.png');
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+  }
+  
+  .add-book-container {
+    background: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    width: 400px;
+    text-align: center;
+  }
+  
+  .add-book-container h1 {
+    font-size: 1.8em;
+    color: #5a5a5a;
+    margin-bottom: 20px;
+  }
+  
+  .add-book-container label {
+    display: block;
+    font-weight: bold;
+    text-align: left;
+    margin-bottom: 5px;
+    color: #333;
+  }
+  
+  .add-book-container input[type="text"],
+  .add-book-container input[type="date"] {
+    width: 100%;
+    padding: 12px;
+    margin: 8px 0 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .submit-button {
+    background-color: #28a745;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    width: 100%;
+  }
+  
+  .submit-button:hover {
+    background-color: #218838;
+  }
