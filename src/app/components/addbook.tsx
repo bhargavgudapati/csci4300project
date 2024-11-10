@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './addbook.module.css'; // Optional: specific CSS for AddBook page
+import styles from './addbook.module.css'; // Import the CSS module
 
 const AddBook: React.FC = () => {
   const [title, setTitle] = useState('');
@@ -12,10 +12,10 @@ const AddBook: React.FC = () => {
   };
 
   return (
-    <div className="add-book-container">
-      <h1 className="page-title">Add a New Book</h1>
+    <div className={styles.addBookContainer}>
+      <h1 className={styles.pageTitle}>Add a New Book</h1>
       <form onSubmit={handleSubmit}>
-        <div className="form-group">
+        <div className={styles.formGroup}>
           <label htmlFor="title">Title</label>
           <input 
             type="text" 
@@ -24,7 +24,7 @@ const AddBook: React.FC = () => {
             onChange={(e) => setTitle(e.target.value)} 
           />
         </div>
-        <div className="form-group">
+        <div className={styles.formGroup}>
           <label htmlFor="author">Author</label>
           <input 
             type="text" 
@@ -33,7 +33,7 @@ const AddBook: React.FC = () => {
             onChange={(e) => setAuthor(e.target.value)} 
           />
         </div>
-        <button type="submit" className="submit-button">Add Book</button>
+        <button type="submit" className={styles.submitButton}>Add Book</button>
       </form>
     </div>
   );

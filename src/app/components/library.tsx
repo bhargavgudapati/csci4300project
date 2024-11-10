@@ -1,6 +1,6 @@
 import React from 'react';
 import BookCard from '../components/bookcard';  // Import BookCard correctly
-import './library.module.css'
+import styles from './library.module.css';
 
 interface Book {
   id: number;
@@ -14,9 +14,9 @@ interface LibraryProps {
 
 const Library: React.FC<LibraryProps> = ({ books }) => {
   return (
-    <div className="library-container">
+    <div className={styles.libraryContainer}>
       <h2>My Library</h2>
-      <div className="book-list">
+      <div className={styles.bookList}>
         {books.map((book) => (
           <BookCard key={book.id} book={book} />  // Passing the book prop correctly
         ))}

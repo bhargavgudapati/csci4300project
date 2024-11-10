@@ -3,37 +3,12 @@
 import React, { useState } from 'react';
 import Library from './components/library';
 import AddBook from './components/addbook';
-
-const LoginPage: React.FC = () => {
-    return (
-      <div className="login-page">
-            <h1>NovelNotes</h1>
-            
-            {/* Container for form fields */}
-            <div className="form-container">
-                <form>
-                    <label>Username</label>
-                    <input type="text" placeholder="Enter username" />
-                    <label>Password</label>
-                    <input type="password" placeholder="Enter password" />
-                    <button type="submit">Sign In</button>
-                </form>
-            </div>
-
-            <p>Your personal library, organized and noted</p>
-
-          
-            <button className="sign-up-btn" onClick={() => alert("Redirect to Sign Up")}>
-                Sign Up
-            </button>
-        </div>
-    );
-};
+import LoginPage from './components/login';
 
 //export default LoginPage;
 
 const Page: React.FC = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState(true); // Change to `false` when ready for auth
+  const [isAuthenticated, setIsAuthenticated] = useState(false); // Change to `false` when ready for auth
 
   interface Book {
     id: number;
@@ -52,8 +27,8 @@ const Page: React.FC = () => {
   return (
       <div>
           {isAuthenticated ? (
-               // <Library books={books} />  // Render other pages here if authenticated
-              <AddBook />
+               <Library books={books} />  // Render other pages here if authenticated
+             // <AddBook />
           ) : (
               <LoginPage />  // Render login page if not authenticated
           )}

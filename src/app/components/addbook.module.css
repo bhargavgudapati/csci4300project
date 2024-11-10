@@ -1,47 +1,46 @@
+.addBookContainer {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #ffffff; /* Light background color for contrast */
+  border-radius: 8px;        /* Rounded corners */
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1); /* Shadow for depth */
+}
 
-  .add-book-container {
-    max-width: 500px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #ffffff; /* Light background color for contrast */
-    border-radius: 8px;        /* Rounded corners */
-    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1); /* Shadow for depth */
-  }
-  
-  .add-book-container h1 {
-    font-size: 1.8em;
-    color: #5a5a5a;
-    margin-bottom: 20px;
-  }
-  
-  .add-book-container label {
-    display: block;
-    font-weight: bold;
-    text-align: left;
-    margin-bottom: 5px;
-    color: #333;
-  }
-  
-  .add-book-container input[type="text"],
-  .add-book-container input[type="date"] {
-    width: 100%;
-    padding: 12px;
-    margin: 8px 0 16px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
-  
-  .submit-button {
-    background-color: #28a745;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: bold;
-    width: 100%;
-  }
-  
-  .submit-button:hover {
-    background-color: #218838;
-  }
+.addBookContainer h1 {
+  font-size: 1.8em;
+  color: #5a5a5a;
+  margin-bottom: 20px;
+}
+
+.addBookContainer label {
+  display: block;
+  font-weight: bold;
+  text-align: left;
+  margin-bottom: 5px;
+  color: #333;
+}
+
+.addBookContainer input[type="text"],
+.addBookContainer input[type="date"] {
+  width: 100%;
+  padding: 12px;
+  margin: 8px 0 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.submitButton {
+  background-color: #28a745;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  width: 100%;
+}
+
+.submitButton:hover {
+  background-color: #218838;
+}

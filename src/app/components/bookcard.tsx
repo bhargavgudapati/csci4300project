@@ -1,5 +1,5 @@
 import React from 'react';
-import './bookcard.module.css'
+import styles from './bookcard.module.css';
 
 interface Book {
   id: number;
@@ -14,7 +14,7 @@ interface BookCardProps {
 
 const BookCard: React.FC<BookCardProps> = ({ book }) => {
   return (
-    <div className="book-card">
+    <div className={styles.bookCard}>
       <h3>{book.title}</h3>
       <p>{book.author}</p>
     </div>
