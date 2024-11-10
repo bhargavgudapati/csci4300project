@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../components/library.module.css'; // Optional: specific CSS for AddBook page
+import './addbook.module.css'; // Optional: specific CSS for AddBook page
 
 const AddBook: React.FC = () => {
   const [title, setTitle] = useState('');

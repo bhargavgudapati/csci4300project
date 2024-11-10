@@ -1,26 +1,10 @@
-
-.library-container {
-    padding: 20px;
-  }
-  
-  .library-container h2 {
-    font-size: 24px;
-    margin-bottom: 20px;
-  }
-  
-  .book-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: start;
-  }
-  
-  .book-card {
+.book-card {
     background-color: #fff;
     border: 1px solid #ddd;
     border-radius: 8px;
     padding: 20px;
-    width: 200px;
+    margin: 10px;
+    width: 200px;  /* Adjust width as needed */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
   

@@ -1,8 +1,9 @@
 import React from 'react';
 import BookCard from '../components/bookcard';  // Import BookCard correctly
+import './library.module.css'
 
 interface Book {
-  id: string;
+  id: number;
   title: string;
   author: string;
 }
