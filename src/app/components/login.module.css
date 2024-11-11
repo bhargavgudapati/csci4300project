@@ -1,8 +1,8 @@
 .loginPage {
-  font-family: Arial, sans-serif; /* Set a font for the login page */
+  font-family: Arial, sans-serif;
   padding: 20px;
   max-width: 400px;
-  margin: 0 auto; /* Center the login page */
+  margin: 0 auto;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   background-color: #fff;
@@ -38,12 +38,12 @@
 .loginPage input[type="text"]:focus,
 .loginPage input[type="password"]:focus {
   outline: none;
-  border-color: #3b82f6; /* Focus color */
+  border-color: #3b82f6;
 }
 
 .loginPage button {
   padding: 10px;
-  background-color: #3b82f6; /* Primary button color */
+  background-color: #3b82f6;
   color: white;
   border: none;
   border-radius: 4px;
@@ -52,7 +52,7 @@
 }
 
 .loginPage button:hover {
-  background-color: #2563eb; /* Hover state */
+  background-color: #2563eb;
 }
 
 .loginPage p {
@@ -65,7 +65,7 @@
   display: block;
   margin: 20px auto;
   padding: 10px;
-  background-color: #10b981; /* Sign-up button color */
+  background-color: #10b981;
   color: white;
   border: none;
   border-radius: 4px;
@@ -74,5 +74,5 @@
 }
 
 .signUpBtn:hover {
-  background-color: #059669; /* Hover state for sign-up button */
+  background-color: #059669;
 }

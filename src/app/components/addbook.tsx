@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import styles from './addbook.module.css'; // Import the CSS module
+import styles from './addbook.module.css';
 
 const AddBook: React.FC = () => {
   const [title, setTitle] = useState('');
@@ -7,7 +7,6 @@ const AddBook: React.FC = () => {
   
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Add the book to your collection (e.g., using a function or API call)
     console.log('Book added:', { title, author });
   };
 

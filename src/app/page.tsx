@@ -6,8 +6,6 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import AddBook from './components/addbook';
 import LoginPage from './components/login';
 
-//export default LoginPage;
-
 const Page: React.FC = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(true); // Change to `false` when ready for auth
 

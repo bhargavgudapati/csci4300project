@@ -1,5 +1,5 @@
 import React from 'react';
-import BookCard from '../components/bookcard';  // Import BookCard correctly
+import BookCard from '../components/bookcard';
 import styles from './library.module.css';
 
 import { useNavigate } from 'react-router-dom';
@@ -11,7 +11,7 @@ interface Book {
 }
 
 interface LibraryProps {
-  books: Book[];  // Expecting an array of books as a prop
+  books: Book[]; 
 }
 
 
@@ -19,7 +19,6 @@ const Library: React.FC<LibraryProps> = ({ books }) => {
   const navigate = useNavigate();
 
   const handleAddBook = () => {
-    // alert("Redirect to Add Book page"); // Replace with actual navigation
     navigate('/addbook');
   };
 
@@ -28,7 +27,7 @@ const Library: React.FC<LibraryProps> = ({ books }) => {
       <h2 className={styles.libraryTitle}>My Library</h2>
       <div className={styles.bookList}>
         {books.map((book) => (
-          <BookCard key={book.id} book={book} />  // Passing the book prop correctly
+          <BookCard key={book.id} book={book} />
         ))}
       </div>
       <div className={styles.addButtonContainer}>
