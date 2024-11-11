@@ -2,13 +2,14 @@
 
 import React, { useState } from 'react';
 import Library from './components/library';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import AddBook from './components/addbook';
 import LoginPage from './components/login';
 
 //export default LoginPage;
 
 const Page: React.FC = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false); // Change to `false` when ready for auth
+  const [isAuthenticated, setIsAuthenticated] = useState(true); // Change to `false` when ready for auth
 
   interface Book {
     id: number;
@@ -25,14 +26,23 @@ const Page: React.FC = () => {
   ];
 
   return (
-      <div>
-          {isAuthenticated ? (
-               <Library books={books} />  // Render other pages here if authenticated
-             // <AddBook />
-          ) : (
-              <LoginPage />  // Render login page if not authenticated
-          )}
-      </div>
+    <Router>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <div>
+              {isAuthenticated ? (
+                <Library books={books} />  // Render other pages here if authenticated
+              ) : (
+                <LoginPage />  // Render login page if not authenticated
+              )}
+            </div>
+          }
+        />
+        <Route path="/addbook" element={<AddBook />} />
+      </Routes>
+    </Router>
   );
 };
 
