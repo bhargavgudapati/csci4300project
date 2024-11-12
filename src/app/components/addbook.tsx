@@ -30,6 +30,7 @@ const AddBook: React.FC<AddBookProps> = ({ addBook }) => {
 
     // Add the book to the list
     addBook(newBook);
+    console.log('Book added:', { title, author });
     // goes back library page
     navigate('/');
   };

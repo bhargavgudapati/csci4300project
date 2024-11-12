@@ -16,9 +16,9 @@ const MyLibraryButton: React.FC = () => {
 };
 
 const libraryButtonStyles: React.CSSProperties = {
-  position: 'fixed',
-  top: '20px',
-  left: '20px',
+  position: 'absolute',
+  top: '15px',
+  right: '20px',
   padding: '10px 15px',
   backgroundColor: '#28a745',
   color: 'white',

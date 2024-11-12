@@ -7,6 +7,7 @@ import AddBook from './components/addbook';
 import LoginPage from './components/login';
 import SignOutButton from './components/signoutbutton';
 import MyLibraryButton from './components/mylibrarybutton';
+import Link from 'next/link';
 
 const Page: React.FC = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(true); // Change to `false` when ready for auth
@@ -35,6 +36,10 @@ const addBook = (newBook: Book) => {
 
 
 return (
+  <div>
+    <nav>
+        NovelNotes
+      </nav>
   <Router>
   <Routes>
     <Route
@@ -65,6 +70,7 @@ return (
     <Route path="/login" element={<LoginPage />} />
   </Routes>
 </Router>
+</div>
 );
 };
 

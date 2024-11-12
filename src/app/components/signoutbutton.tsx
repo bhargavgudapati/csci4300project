@@ -7,7 +7,6 @@ interface SignOutButtonProps {
 
 const SignOutButton: React.FC<SignOutButtonProps> = ({ onSignOut }) => {
   const handleSignOut = () => {
-    console.log("Sign Out button clicked");
     onSignOut();
   };
 
@@ -19,7 +18,8 @@ const SignOutButton: React.FC<SignOutButtonProps> = ({ onSignOut }) => {
 };
 
 const signOutButtonStyles: React.CSSProperties = {
-  top: '20px',
+  position: 'absolute',
+  top: '15px',
   right: '20px',
   padding: '10px 15px',
   backgroundColor: '#dc3545',
