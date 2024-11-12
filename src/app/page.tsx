@@ -5,7 +5,8 @@ import Library from './components/library';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import AddBook from './components/addbook';
 import LoginPage from './components/login';
-import Link from 'next/link';
+import SignOutButton from './components/signoutbutton';
+import MyLibraryButton from './components/mylibrarybutton';
 
 const Page: React.FC = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(true); // Change to `false` when ready for auth
@@ -16,39 +17,55 @@ const Page: React.FC = () => {
     author: string;
   }
   
+  // example book array
+ const [books, setBooks] = useState<Book[]>([
+  { id: 1, title: "The Shining", author: "Stephen King" },
+  { id: 2, title: "A Court of Thorns and Roses", author: "Sarah J. Maas" },
+  { id: 3, title: "The Great Gatsby", author: "F. Scott Fitzgerald" }
+]);
 
-    // Sample books array to pass to Library
-    const books: Book[] = [
-      { id: 1, title: "Book Title 1", author: "Author 1" },
-      { id: 2, title: "Book Title 2", author: "Author 2" },
-      { id: 3, title: "Book Title 3", author: "Author 3" }
-      // Add more book objects as needed
-  ];
+const handleSignOut = () => {
+  setIsAuthenticated(false);
+};
 
-  return (
-    <div>
-      <nav>
-        NovelNotes
-      </nav>
-      <Router>
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <div>
-                {isAuthenticated ? (
-                  <Library books={books} />  // Render other pages here if authenticated
-                ) : (
-                  <LoginPage />  // Render login page if not authenticated
-                )}
-              </div>
-            }
-          />
-          <Route path="/addbook" element={<AddBook />} />
-        </Routes>
-      </Router>
-    </div>
-  );
+// Function to add a new book to the books list
+const addBook = (newBook: Book) => {
+  setBooks([...books, newBook]);
+};
+
+
+return (
+  <Router>
+  <Routes>
+    <Route
+      path="/"
+      element={
+        <div>
+          {isAuthenticated ? (
+            <div>
+              <SignOutButton onSignOut={handleSignOut} />
+              <Library books={books} /> 
+            </div>
+          ) : (
+            <LoginPage />
+          )}
+        </div>
+      }
+    />
+    <Route
+      path="/addbook"
+      element={
+        <div>
+          <MyLibraryButton />
+          <AddBook addBook={addBook} />
+          
+        </div>
+      }
+    />
+    <Route path="/login" element={<LoginPage />} />
+  </Routes>
+</Router>
+);
 };
 
 export default Page;
