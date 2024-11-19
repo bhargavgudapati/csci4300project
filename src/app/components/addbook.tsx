@@ -1,19 +1,38 @@
 import React, { useState } from 'react';
 import styles from './addbook.module.css';
+import { useNavigate  } from 'react-router-dom';
 
-interface AddBookProps {
-  bookAdder: () => void
+interface Book {
+  id: number;
+  title: string;
+  author: string;
 }
 
-const AddBook: React.FC = () => {
+interface AddBookProps {
+  addBook: (newBook: Book) => void;
+}
+
+const AddBook: React.FC<AddBookProps> = ({ addBook }) => {
   const [title, setTitle] = useState('');
   const [author, setAuthor] = useState('');
+  const navigate = useNavigate();
   
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setTitle("");
-    setAuthor("");
+
+    // Create a new book object
+    const newBook: Book = {
+      id: Date.now(),
+      title,
+      author,
+    };
+
+    // Add the book to the list
+    addBook(newBook);
     console.log('Book added:', { title, author });
+    // goes back library page
+    navigate('/');
   };
 
   return (
