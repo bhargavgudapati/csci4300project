@@ -1,3 +1,4 @@
+
 import React from 'react';
 import styles from './bookcard.module.css';
 import Image from 'next/image'
