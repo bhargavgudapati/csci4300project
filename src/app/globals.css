@@ -3,15 +3,3 @@ body {
     background-image: url('./images/books.png'); /* Adjust path if necessary */
     font-family: "noto-sans", sans-serif;
 }
-
-nav {
-    font-size: 1.8em;
-    background-color: grey;
-    opacity: 0.8;
-    border-radius: 10px;
-    justify-content: space-between;
-    display: flex;
-    flex-direction: row;
-    padding: 5px;
-    margin: 10px;
-}
