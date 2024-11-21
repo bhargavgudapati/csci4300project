@@ -1,0 +1,11 @@
+
+.nav {
+    font-size: 1.8em;
+    background-color: grey;
+    opacity: 0.8;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    padding: 5px;
+    margin: 10px;
+}

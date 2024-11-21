@@ -1,33 +1,19 @@
+
+import styles from './signoutbutton.module.css';
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/navigation';
 
-interface SignOutButtonProps {
-  onSignOut: () => void;
-}
+const SignOutButton: React.FC<{}> = () => {
+    const router = useRouter();
+    
+    const handleSignOut = () => {
+	router.push("/login");
+    };
 
-const SignOutButton: React.FC<SignOutButtonProps> = ({ onSignOut }) => {
-  const handleSignOut = () => {
-    onSignOut();
-  };
-
-  return (
-    <button onClick={handleSignOut} style={signOutButtonStyles}>
-      Sign Out
-    </button>
-  );
+    return (
+	<button onClick={handleSignOut} className={`${styles.signoutbutton}`}>Sign Out</button>
+    );
 };
 
-const signOutButtonStyles: React.CSSProperties = {
-  position: 'absolute',
-  top: '15px',
-  right: '20px',
-  padding: '10px 15px',
-  backgroundColor: '#dc3545',
-  color: 'white',
-  border: 'none',
-  borderRadius: '5px',
-  cursor: 'pointer',
-  fontWeight: 'bold',
-};
 
 export default SignOutButton;
