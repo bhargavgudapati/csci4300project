@@ -3,7 +3,7 @@
 import React from 'react';
 import styles from './bookcard.module.css';
 import Image from 'next/image';
-import { Book } from './bookinterface'; // Import shared Book interface
+import { Book } from './bookinterface';
 
 interface BookCardProps {
   book: Book;

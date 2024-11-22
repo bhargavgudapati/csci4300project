@@ -20,7 +20,6 @@ const Library: React.FC = () => {
 
   const router = useRouter();
 
-  // Fetch books on component mount
   useEffect(() => {
     const fetchBooks = async () => {
       try {
@@ -29,8 +28,8 @@ const Library: React.FC = () => {
           throw new Error('Failed to fetch books');
         }
         const data = await response.json();
-        console.log('Fetched books:', data.items); // Debugging log
-        setBooks(data.items || []); // Ensure books is always an array
+        console.log('Fetched books:', data.items);
+        setBooks(data.items || []);
         setLoading(false);
       } catch (err: any) {
         setError(err.message);
@@ -42,7 +41,7 @@ const Library: React.FC = () => {
   }, []);
 
   const handleAddBook = () => {
-    router.push('/addbook'); // Navigate to add book page
+    router.push('/addbook');
   };
 
   if (loading) return <div>Loading...</div>;

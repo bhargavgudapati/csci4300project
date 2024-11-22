@@ -14,7 +14,7 @@ interface Book {
 const AddBook: React.FC = () => {
   const [title, setTitle] = useState('');
   const [author, setAuthor] = useState('');
-  const [showError, setShowError] = useState(false); // Error state
+  const [showError, setShowError] = useState(false);
   const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -36,10 +36,10 @@ const AddBook: React.FC = () => {
       }
 
       console.log('Book added successfully:', newBook);
-      router.push('/'); // Navigate to library
+      router.push('/');
     } catch (error) {
       console.error('Error adding book:', error);
-      setShowError(true); // Show error popup
+      setShowError(true);
     }
   };
 

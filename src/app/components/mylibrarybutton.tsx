@@ -5,7 +5,7 @@ const MyLibraryButton: React.FC = () => {
   const navigate = useNavigate();
 
   const handleLibraryClick = () => {
-    navigate('/'); // Navigate to the library page
+    navigate('/');
   };
 
   return (
