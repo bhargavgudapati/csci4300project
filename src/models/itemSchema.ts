@@ -1,14 +1,19 @@
 import mongoose, { Schema, Document, Model } from "mongoose";
 
-interface IBook extends Document {
+interface IItem extends Document {
     title: string;
-    author: string;
+    author?: string;
 }
 
-const bookSchema = new Schema<IBook> ({
-    title: { type: String, required: true }, 
-    author: { type: String, required: true }, 
-});
+const itemSchema = new Schema<IItem>({
+    title: {
+        type: String,
+        required: true,
+    },
+    author: {
+        type: String,
+    }
+})
 
-const Book: Model<IBook> = mongoose.models.Item || mongoose.model<IBook>("Item", bookSchema);
-export default Book;
+const Item: Model<IItem> = mongoose.models.Item || mongoose.model<IItem>("Item", itemSchema);
+export default Item;

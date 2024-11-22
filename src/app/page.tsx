@@ -1,78 +1,64 @@
-'use client';
+"use client";
 
-import React, { useState } from 'react';
-import Library from './components/library';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import AddBook from './components/addbook';
-import LoginPage from './components/login';
-import SignOutButton from './components/signoutbutton';
-import MyLibraryButton from './components/mylibrarybutton';
-import Link from 'next/link';
+import React, { useEffect, useState } from 'react';
+import BookCard from '../app/components/bookcard'; // Ensure this path is correct
+import styles from './components/library.module.css';
+import { useNavigate } from 'react-router-dom';
 
-const Page: React.FC = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState(true); // Change to `false` when ready for auth
+interface Book {
+  id: string; // MongoDB ObjectId or other unique string identifier
+  title: string;
+  author: string;
+}
 
-  interface Book {
-    id: number;
-    title: string;
-    author: string;
-  }
-  
-  // example book array
- const [books, setBooks] = useState<Book[]>([
-  { id: 1, title: "The Shining", author: "Stephen King" },
-  { id: 2, title: "A Court of Thorns and Roses", author: "Sarah J. Maas" },
-  { id: 3, title: "The Great Gatsby", author: "F. Scott Fitzgerald" }
-]);
+const Library: React.FC = () => {
+  const [books, setBooks] = useState<Book[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+  const navigate = useNavigate();
 
-const handleSignOut = () => {
-  setIsAuthenticated(false);
-};
-
-// Function to add a new book to the books list
-const addBook = (newBook: Book) => {
-  setBooks([...books, newBook]);
-};
-
-
-return (
-  <div>
-    <nav>
-        NovelNotes
-      </nav>
-  <Router>
-  <Routes>
-    <Route
-      path="/"
-      element={
-        <div>
-          {isAuthenticated ? (
-            <div>
-              <SignOutButton onSignOut={handleSignOut} />
-              <Library books={books} /> 
-            </div>
-          ) : (
-            <LoginPage />
-          )}
-        </div>
+  useEffect(() => {
+    const fetchBooks = async () => {
+      try {
+        const response = await fetch('/api/items');
+        if (!response.ok) {
+          throw new Error('Failed to fetch books');
+        }
+        const data = await response.json();
+        setBooks(data.items); // Assuming the API returns { items: [...] }
+        setLoading(false);
+      } catch (err: any) {
+        setError(err.message);
+        setLoading(false);
       }
-    />
-    <Route
-      path="/addbook"
-      element={
-        <div>
-          <MyLibraryButton />
-          <AddBook addBook={addBook} />
-          
-        </div>
-      }
-    />
-    <Route path="/login" element={<LoginPage />} />
-  </Routes>
-</Router>
-</div>
-);
+    };
+
+    fetchBooks();
+  }, []);
+
+  const handleAddBook = () => {
+    navigate('/addbook');
+  };
+
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error}</div>;
+
+  return (
+    <div className={styles.libraryContainer}>
+      <h2 className={styles.libraryTitle}>My Library</h2>
+      <div className={styles.bookList}>
+        {books.map((book) => (
+          <BookCard key={book.id} book={book} /> // Renders each book
+        ))}
+      </div>
+      <div className={styles.addButtonContainer}>
+        <button className={styles.addBookButton} onClick={handleAddBook}>
+          Add Book
+        </button>
+      </div>
+    </div>
+  );
 };
 
-export default Page;
+export default Library;
 

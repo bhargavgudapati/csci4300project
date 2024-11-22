@@ -4,10 +4,9 @@ import styles from './bookcard.module.css';
 import Image from 'next/image'
 
 interface Book {
-  id: number;
+  id: string; // Ensure this matches 'library.tsx'
   title: string;
   author: string;
-  // Add any other properties needed for the book
 }
 
 interface BookCardProps {

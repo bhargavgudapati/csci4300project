@@ -2,43 +2,59 @@ import connectMongoDB from "@/libs/mongodb";
 import Item from "@/models/itemSchema";
 import { NextResponse } from "next/server";
 import { NextRequest } from "next/server";
+import axios from "axios";
 
-export async function GET(request: NextRequest) {
-    try {
-        // Connect to MongoDB
-        await connectMongoDB();
+const OPEN_LIBRARY_API_URL = "https://openlibrary.org/search.json";
 
-        // Retrieve all items from the collection
-        const items = await Item.find();
-
-        // Return the items as a JSON response
-        return NextResponse.json({ items }, { status: 200 });
-    } catch (error) {
-        console.error("Error fetching items:", error);
-        // Return an error response if something goes wrong
-        return NextResponse.json({ message: "Failed to fetch items" }, { status: 500 });
-    }
+export async function GET() {
+  await connectMongoDB();
+  const items = await Item.find();
+  return NextResponse.json({ items });
 }
 
 export async function POST(request: NextRequest) {
-    try {
-        // Parse the request body
-        const { title, author } = await request.json();
+  const { title, author } = await request.json();
 
-        console.log("Received data:", { title, author });
+  // Validate input
+  if (!title || !author) {
+    return NextResponse.json({ message: "Title and author are required" }, { status: 400 });
+  }
 
-        // Connect to the MongoDB database
-        await connectMongoDB();
+  await connectMongoDB();
 
-        // Create a new item in the database
-        const newItem = await Item.create({ title, author });
+  try {
+    // Query Open Library API
+    const response = await axios.get(OPEN_LIBRARY_API_URL, {
+      params: { title, author },
+    });
 
-        // Return a success response
-        return NextResponse.json({ message: "Item added successfully", item: newItem }, { status: 201 } );
-    } catch (error) {
-        console.error("Error adding item:", error);
-        // Return an error response if something goes wrong
-        return NextResponse.json({ message: "Failed to add item" }, { status: 500 });
+    const books = response.data.docs;
+
+    if (books && books.length > 0) {
+      // Book found in Open Library
+      const book = books[0]; // Use the first result
+      console.log("Book found in Open Library:", book);
+
+      // Save the book to MongoDB
+      const newItem = await Item.create({
+        title,
+        author,
+        openLibraryId: book.key, // Save Open Library's unique key for the book
+      });
+
+      return NextResponse.json(
+        { message: "Book added successfully", item: newItem },
+        { status: 201 }
+      );
+    } else {
+      // Book not found in Open Library
+      return NextResponse.json({ message: "Book not found in Open Library" }, { status: 404 });
     }
+  } catch (error: any) {
+    console.error("Error querying Open Library API:", error.message);
+    return NextResponse.json(
+      { message: "Error querying Open Library API", error: error.message },
+      { status: 500 }
+    );
+  }
 }
-

@@ -12,27 +12,39 @@ interface AddBookProps {
   addBook: (newBook: Book) => void;
 }
 
-const AddBook: React.FC<AddBookProps> = ({ addBook }) => {
+const AddBook: React.FC = () => {
   const [title, setTitle] = useState('');
   const [author, setAuthor] = useState('');
+  const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
-  
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Create a new book object
-    const newBook: Book = {
-      id: Date.now(),
-      title,
-      author,
-    };
+    const newBook = { title, author };
 
-    // Add the book to the list
-    addBook(newBook);
-    console.log('Book added:', { title, author });
-    // goes back library page
-    navigate('/');
+    try {
+      // Send book to the server
+      const response = await fetch('/api/items', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(newBook),
+      });
+
+      if (!response.ok) {
+        const data = await response.json();
+        throw new Error(data.message || 'Failed to add the book');
+      }
+
+      console.log('Book added successfully');
+      // Navigate back to the library page
+      navigate('/');
+    } catch (error: any) {
+      console.error('Error adding the book:', error.message);
+      setError(error.message);
+    }
   };
 
   return (

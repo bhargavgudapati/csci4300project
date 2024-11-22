@@ -1,26 +1,46 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import BookCard from '../components/bookcard';
 import styles from './library.module.css';
-
 import { useNavigate } from 'react-router-dom';
 
 interface Book {
-  id: number;
+  id: string;
   title: string;
   author: string;
 }
 
-interface LibraryProps {
-  books: Book[]; 
-}
-
-
-const Library: React.FC<LibraryProps> = ({ books }) => {
+const Library: React.FC = () => {
+  const [books, setBooks] = useState<Book[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchBooks = async () => {
+      try {
+        const response = await fetch('/api/items');
+        if (!response.ok) {
+          throw new Error('Failed to fetch books');
+        }
+        const data = await response.json();
+        setBooks(data.items); // Assuming the API returns { items: [...] }
+        setLoading(false);
+      } catch (err: any) {
+        setError(err.message);
+        setLoading(false);
+      }
+    };
+
+    fetchBooks();
+  }, []); // Empty dependency array ensures it fetches once on mount
 
   const handleAddBook = () => {
     navigate('/addbook');
   };
+
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error}</div>;
+
 
   return (
     <div className={styles.libraryContainer}>
