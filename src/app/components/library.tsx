@@ -1,41 +1,68 @@
-
 'use client';
-import styles from './library.module.css';
-import React from 'react';
-import BookCard from '../components/bookcard';
+
+import React, { useEffect, useState } from 'react'; // Import useState
 import { useRouter } from 'next/navigation';
+import styles from './library.module.css';
+import BookCard from '../components/bookcard'; // Adjust path as needed
 
+// Define the Book interface
 interface Book {
-    id: number;
-    title: string;
-    author: string;
+  id: string; // MongoDB ObjectId or other unique identifier
+  title: string;
+  author: string;
 }
 
-interface LibraryProps {
-    books: Book[]; 
-}
+const Library: React.FC = () => {
+  // Initialize state
+  const [books, setBooks] = useState<Book[]>([]); // books is an empty array initially
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
 
+  const router = useRouter();
 
-const Library: React.FC<LibraryProps> = ({ books }) => {
-    const router = useRouter();
-
-    const handleAddBook = () => {
-	router.push("/addbook");
+  // Fetch books on component mount
+  useEffect(() => {
+    const fetchBooks = async () => {
+      try {
+        const response = await fetch('/api/items');
+        if (!response.ok) {
+          throw new Error('Failed to fetch books');
+        }
+        const data = await response.json();
+        console.log('Fetched books:', data.items); // Debugging log
+        setBooks(data.items || []); // Ensure books is always an array
+        setLoading(false);
+      } catch (err: any) {
+        setError(err.message);
+        setLoading(false);
+      }
     };
 
-    return (
-	<div className={styles.libraryContainer}>
-	    <h2 className={styles.libraryTitle}>My Library</h2>
-	    <div className={styles.bookList}>
-		{books.map((book) => (
-		    <BookCard key={book.id} book={book} />
-		))}
-	    </div>
-	    <div className={styles.addButtonContainer}>
-		<button className={styles.addBookButton} onClick={handleAddBook}>Add Book</button>
-	    </div>
-	</div>
-    );
+    fetchBooks();
+  }, []);
+
+  const handleAddBook = () => {
+    router.push('/addbook'); // Navigate to add book page
+  };
+
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error}</div>;
+
+  return (
+    <div className={styles.libraryContainer}>
+      <h2 className={styles.libraryTitle}>My Library</h2>
+      <div className={styles.bookList}>
+        {books.map((book) => (
+          <BookCard key={book.id} book={book} />
+        ))}
+      </div>
+      <div className={styles.addButtonContainer}>
+        <button className={styles.addBookButton} onClick={handleAddBook}>
+          Add Book
+        </button>
+      </div>
+    </div>
+  );
 };
 
 export default Library;
