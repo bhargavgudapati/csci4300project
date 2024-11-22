@@ -1,62 +1,41 @@
-import React, { useEffect, useState } from 'react';
-import BookCard from '../components/bookcard';
+
+'use client';
 import styles from './library.module.css';
-import { useNavigate } from 'react-router-dom';
+import React from 'react';
+import BookCard from '../components/bookcard';
+import { useRouter } from 'next/navigation';
 
 interface Book {
-  id: string;
-  title: string;
-  author: string;
+    id: number;
+    title: string;
+    author: string;
 }
 
-const Library: React.FC = () => {
-  const [books, setBooks] = useState<Book[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
-  const navigate = useNavigate();
+interface LibraryProps {
+    books: Book[]; 
+}
 
-  useEffect(() => {
-    const fetchBooks = async () => {
-      try {
-        const response = await fetch('/api/items');
-        if (!response.ok) {
-          throw new Error('Failed to fetch books');
-        }
-        const data = await response.json();
-        setBooks(data.items); // Assuming the API returns { items: [...] }
-        setLoading(false);
-      } catch (err: any) {
-        setError(err.message);
-        setLoading(false);
-      }
+
+const Library: React.FC<LibraryProps> = ({ books }) => {
+    const router = useRouter();
+
+    const handleAddBook = () => {
+	router.push("/addbook");
     };
 
-    fetchBooks();
-  }, []); // Empty dependency array ensures it fetches once on mount
-
-  const handleAddBook = () => {
-    navigate('/addbook');
-  };
-
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error}</div>;
-
-
-  return (
-    <div className={styles.libraryContainer}>
-      <h2 className={styles.libraryTitle}>My Library</h2>
-      <div className={styles.bookList}>
-        {books.map((book) => (
-          <BookCard key={book.id} book={book} />
-        ))}
-      </div>
-      <div className={styles.addButtonContainer}>
-      <button className={styles.addBookButton} onClick={handleAddBook}>
-        Add Book
-      </button>
-      </div>
-    </div>
-  );
+    return (
+	<div className={styles.libraryContainer}>
+	    <h2 className={styles.libraryTitle}>My Library</h2>
+	    <div className={styles.bookList}>
+		{books.map((book) => (
+		    <BookCard key={book.id} book={book} />
+		))}
+	    </div>
+	    <div className={styles.addButtonContainer}>
+		<button className={styles.addBookButton} onClick={handleAddBook}>Add Book</button>
+	    </div>
+	</div>
+    );
 };
 
 export default Library;
