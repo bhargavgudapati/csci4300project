@@ -1,31 +1,38 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import Library from "./components/library"; // Adjust path based on your structure
-import { Book } from "./components/bookinterface"; // Ensure this path points to your shared interface
+import Library from "./components/library";
+import { Book } from "./components/bookinterface";
 
 const Page: React.FC = () => {
-  const [books, setBooks] = useState<Book[]>([]); // Initialize as an empty array
+  const [books, setBooks] = useState<Book[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
-  // Fetch books from the API
+  // Fetch books from books API
   useEffect(() => {
     const fetchBooks = async () => {
       try {
-        const response = await fetch("/api/items"); // Adjust endpoint if necessary
+        const response = await fetch("/api/items");
         if (!response.ok) {
           throw new Error("Failed to fetch books");
         }
         const data = await response.json();
-        setBooks(data.items || []); // Ensure books is always an array
+  
+        // Add unique IDs if missing
+        const booksWithId = data.items.map((book: any, index: number) => ({
+          ...book,
+          id: book.id || `book-${index}`,
+        }));
+  
+        setBooks(booksWithId);
         setLoading(false);
       } catch (err: any) {
         setError(err.message);
         setLoading(false);
       }
     };
-
+  
     fetchBooks();
   }, []);
 

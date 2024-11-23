@@ -1,51 +1,21 @@
 'use client';
 
-import React, { useEffect, useState } from 'react'; // Import useState
-import { useRouter } from 'next/navigation';
-import styles from './library.module.css';
-import BookCard from '../components/bookcard'; // Adjust path as needed
+import React from "react";
+import BookCard from "../components/bookcard"; // Adjust path based on your structure
+import styles from "./library.module.css";
+import { Book } from "../components/bookinterface"; // Import shared Book interface
+import { useRouter } from "next/navigation";
 
-// Define the Book interface
-interface Book {
-  id: string; // MongoDB ObjectId or other unique identifier
-  title: string;
-  author: string;
+interface LibraryProps {
+  books: Book[]; // Define books as a required prop
 }
 
-const Library: React.FC = () => {
-  // Initialize state
-  const [books, setBooks] = useState<Book[]>([]); // books is an empty array initially
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
-
+const Library: React.FC<LibraryProps> = ({ books }) => {
   const router = useRouter();
 
-  useEffect(() => {
-    const fetchBooks = async () => {
-      try {
-        const response = await fetch('/api/items');
-        if (!response.ok) {
-          throw new Error('Failed to fetch books');
-        }
-        const data = await response.json();
-        console.log('Fetched books:', data.items);
-        setBooks(data.items || []);
-        setLoading(false);
-      } catch (err: any) {
-        setError(err.message);
-        setLoading(false);
-      }
-    };
-
-    fetchBooks();
-  }, []);
-
   const handleAddBook = () => {
-    router.push('/addbook');
+    router.push('/addbook'); // Navigate to the Add Book page
   };
-
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error}</div>;
 
   return (
     <div className={styles.libraryContainer}>

@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import styles from './addbook.module.css';
 import { useRouter } from 'next/navigation';
 import Navbar from './navbar';
+import { libraryButtonStyles } from './mylibrarybutton';
 
 interface Book {
   id: string;
@@ -14,7 +15,7 @@ interface Book {
 const AddBook: React.FC = () => {
   const [title, setTitle] = useState('');
   const [author, setAuthor] = useState('');
-  const [showError, setShowError] = useState(false);
+  const [showError, setShowError] = useState(false); // State to show error popup
   const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -22,27 +23,25 @@ const AddBook: React.FC = () => {
 
     const newBook: Omit<Book, 'id'> = { title, author };
 
-    try {
-      const response = await fetch('/api/items', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(newBook),
-      });
+    const response = await fetch('/api/items', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(newBook),
+    });
 
-      if (!response.ok) {
-        throw new Error('Failed to add the book');
-      }
-
-      console.log('Book added successfully:', newBook);
-      router.push('/');
-    } catch (error) {
-      console.error('Error adding book:', error);
-      setShowError(true);
+    if (!response.ok) {
+      setShowError(true); // Show error popup
+      return;
     }
-  };
 
+    console.log('Book added successfully:', newBook);
+    router.push('/'); // Navigate back to library page
+  };
+  const navigateToLibrary = () => {
+    router.push('/'); // Navigate back to library page
+  };
   return (
     <div>
       <Navbar />
@@ -73,13 +72,19 @@ const AddBook: React.FC = () => {
             Add Book
           </button>
         </form>
+        <button
+          style={libraryButtonStyles}
+          onClick={navigateToLibrary}
+        >
+          Back to Library
+        </button>
       </div>
 
       {/* Error Popup */}
       {showError && (
         <div className={styles.errorPopup}>
           <div className={styles.errorContent}>
-            <p>Error adding book</p>
+            <p>Book Not Found. Please try again.</p>
             <button
               className={styles.closeButton}
               onClick={() => setShowError(false)}
