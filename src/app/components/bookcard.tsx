@@ -7,9 +7,10 @@ import { Book } from './bookinterface';
 
 interface BookCardProps {
   book: Book;
+  deleteBook: (id: string) => void;
 }
 
-const BookCard: React.FC<BookCardProps> = ({ book }) => {
+const BookCard: React.FC<BookCardProps> = ({ book, deleteBook }) => {
   return (
     <div className={styles.bookCard}>
       <Image
@@ -18,6 +19,13 @@ const BookCard: React.FC<BookCardProps> = ({ book }) => {
         width="200"
         height="200"
       />
+       <button
+        className={styles.deleteButton}
+        onClick={() => deleteBook(book.id)}
+        title="Delete Book"
+      >
+        X
+      </button>
       <h3>{book.title}</h3>
       <p>{book.author}</p>
     </div>

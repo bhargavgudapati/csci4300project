@@ -25,19 +25,29 @@ export async function PUT(request:NextRequest, { params }:RouteParams ) {
     return NextResponse.json({ message: "Item Updated" }, { status: 200 });
 }
 
-export async function DELETE(request: NextRequest, { params }: RouteParams) {
-    const { id } = params;
-    
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-        return NextResponse.json({ message: "Invalid ID format"}, { status: 400 });
-    }
 
+export async function DELETE(
+    req: Request,
+    { params }: { params: { id: string } } // Correctly access `params`
+  ) {
+    const { id } = params; // Destructure `id` from `params`
+  
     await connectMongoDB();
-    const deletedItem = await Item.findByIdAndDelete(id);
-
-    if (!deletedItem) {
-        return NextResponse.json({ message: "Item not found"}, { status: 404 });
+  
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return NextResponse.json({ message: "Invalid Book ID" }, { status: 400 });
     }
-
-    return NextResponse.json({ message: "Item Deleted"}, { status: 200 });
-}
+  
+    try {
+      const deletedItem = await Item.findByIdAndDelete(id);
+  
+      if (!deletedItem) {
+        return NextResponse.json({ message: "Book not found" }, { status: 404 });
+      }
+  
+      return NextResponse.json({ message: "Book deleted successfully" }, { status: 200 });
+    } catch (error) {
+      console.error("Error deleting book:", error);
+      return NextResponse.json({ message: "Internal Server Error" }, { status: 500 });
+    }
+  }
