@@ -1,41 +1,40 @@
-
 'use client';
-import styles from './library.module.css';
-import React from 'react';
-import BookCard from '../components/bookcard';
-import { useRouter } from 'next/navigation';
 
-interface Book {
-    id: number;
-    title: string;
-    author: string;
-}
+import React from "react";
+import BookCard from "../components/bookcard";
+import styles from "./library.module.css";
+import { Book } from "../components/bookinterface";
 
 interface LibraryProps {
-    books: Book[]; 
+  books: Book[];
+  deleteBook: (id: string) => Promise<void>;
+  handleAddBook: () => void;
 }
 
+const Library: React.FC<LibraryProps> = ({ books = [], deleteBook, handleAddBook }) => {
+  return (
+    <div className={styles.libraryContainer}>
+      <h2 className={styles.libraryTitle}>My Library</h2>
 
-const Library: React.FC<LibraryProps> = ({ books }) => {
-    const router = useRouter();
+      {/* Add Book Button */}
+      <div className={styles.addButtonContainer}>
+        <button className={styles.addBookButton} onClick={handleAddBook}>
+          Add Book
+        </button>
+      </div>
 
-    const handleAddBook = () => {
-	router.push("/addbook");
-    };
-
-    return (
-	<div className={styles.libraryContainer}>
-	    <h2 className={styles.libraryTitle}>My Library</h2>
-	    <div className={styles.bookList}>
-		{books.map((book) => (
-		    <BookCard key={book.id} book={book} />
-		))}
-	    </div>
-	    <div className={styles.addButtonContainer}>
-		<button className={styles.addBookButton} onClick={handleAddBook}>Add Book</button>
-	    </div>
-	</div>
-    );
+      {/* Book List */}
+      <div className={styles.bookList}>
+        {books.length > 0 ? (
+         books.map((book, index) => (
+          <BookCard key={book.id || index} book={book} deleteBook={deleteBook} />
+        ))
+        ) : (
+          <p>No books available.</p>
+        )}
+      </div>
+    </div>
+  );
 };
 
 export default Library;

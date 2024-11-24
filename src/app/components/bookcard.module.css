@@ -4,8 +4,9 @@
   border-radius: 8px;
   padding: 20px;
   margin: 10px;
-  width: 200px;  /* Adjust width as needed */
+  width: 200px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  position: relative;
 }
 
 .bookCard h3 {
@@ -16,4 +17,37 @@
 .bookCard p {
   font-size: 14px;
   color: #555;
+}
+
+.bookCard img {
+  width: 100%;
+  height: auto;
+  border-radius: 5px;
+}
+
+.bookCard:hover .deleteButton {
+  opacity: 1;
+}
+
+.deleteButton {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background-color: red;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+  font-size: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.deleteButton:hover {
+  background-color: darkred;
 }

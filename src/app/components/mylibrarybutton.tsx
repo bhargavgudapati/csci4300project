@@ -5,7 +5,7 @@ const MyLibraryButton: React.FC = () => {
   const navigate = useNavigate();
 
   const handleLibraryClick = () => {
-    navigate('/'); // Navigate to the library page
+    navigate('/');
   };
 
   return (
@@ -15,17 +15,19 @@ const MyLibraryButton: React.FC = () => {
   );
 };
 
-const libraryButtonStyles: React.CSSProperties = {
-  position: 'absolute',
-  top: '15px',
-  right: '20px',
-  padding: '10px 15px',
-  backgroundColor: '#28a745',
-  color: 'white',
+export const libraryButtonStyles: React.CSSProperties = {
+  position: 'fixed',
+  bottom: '20px',
+  left: '50%',
+  transform: 'translateX(-50%)',
+  backgroundColor: '#007bff',
+  color: '#fff',
   border: 'none',
+  padding: '10px 20px',
   borderRadius: '5px',
+  fontSize: '16px',
   cursor: 'pointer',
-  fontWeight: 'bold',
+  zIndex: '1000',
 };
 
 export default MyLibraryButton;
