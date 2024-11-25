@@ -6,15 +6,16 @@ interface IItem extends Document {
     author?: string;
 }
 
-const itemSchema = new Schema<IItem>({
+const bookSchema = new Schema<IItem>({
     title: {
         type: String,
-        required: true,
+        required: true
     },
     author: {
         type: String,
+	required: true
     }
 })
 
-const Item: Model<IItem> = mongoose.models.Item || mongoose.model<IItem>("Item", itemSchema);
-export default Item;
+const Book: Model<IItem> = mongoose.models.Book || mongoose.model<IItem>("Book", bookSchema);
+export default Book;
