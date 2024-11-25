@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import styles from './signupform.module.css';
 import { useRouter } from 'next/navigation';
 
+//creates new user and adds to the database
 async function createUser(username: string, password: string, email: string, firstname: string) {
     const response = await fetch('api/signup', {
 	method: 'POST',
@@ -22,6 +23,7 @@ async function createUser(username: string, password: string, email: string, fir
 
 const SignUp: React.FC<{}> = () => {
     const router = useRouter();
+    
     let [newUser, setNewUser] = useState("");
     let [newPassword, setPassword] = useState("");
     let [newEmail, setEmail] = useState("");
