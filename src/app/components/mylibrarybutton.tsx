@@ -1,11 +1,11 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/router';
 
 const MyLibraryButton: React.FC = () => {
-  const navigate = useNavigate();
+  const router = useRouter();
 
   const handleLibraryClick = () => {
-    navigate('/');
+    router.push('/');
   };
 
   return (
