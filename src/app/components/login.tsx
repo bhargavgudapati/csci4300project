@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import styles from '../components/login.module.css';
 import { useRouter } from 'next/navigation';
+import { doCredentialsLogin } from '../actions';
 
 const LoginPage: React.FC = () => {
 
@@ -13,8 +14,8 @@ const LoginPage: React.FC = () => {
     const onLoginSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         console.log("signing in...");
+		doCredentialsLogin(email, password);
 		console.log("did the sign in");
-		router.push("/");
     }
 
     const onSignupClick = () => {

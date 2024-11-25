@@ -2,9 +2,6 @@
 'use server';
 import { signIn, signOut } from "@/auth";
 
-async function doCredentialsLogin(formdata: FormData) {
-    const email = formdata.get("email");
-    const password = formdata.get("password");
+export async function doCredentialsLogin(email: string, password: string) {
     return await signIn("credentials", { email, password, redirect: false });
 }
-

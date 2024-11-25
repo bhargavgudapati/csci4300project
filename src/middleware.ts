@@ -13,14 +13,15 @@ export async function middleware(request: any) {
 
     const reqURL = new URL(request.url);
     if (!isAuthenticated && reqURL.pathname !=="/login" && reqURL.pathname !=="/signup") {
-	return NextResponse.redirect(new URL("/login", request.url));
+	    return NextResponse.redirect(new URL("/login", request.url));
     } else {
-	return NextResponse.next();
+	    return NextResponse.next();
     }
 }
 
 export const config = {
     matcher: [
-	"/addbook"
+	"/addbook",
+    "/"
     ]
 }

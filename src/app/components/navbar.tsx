@@ -8,17 +8,18 @@ const BaseNavbar: React.FC<{}> = () => {
     const { data, status } = useSession();
     if (status == "authenticated") {
 	const firstname = data?.user?.name;
+	console.log(firstname);
 	return (
 	    <nav className={`${styles.nav}`}>
-						 NovelNotes
-						 Welcome, {firstname}!
+			NovelNotes
+			Welcome, {firstname}!
 		<SignOutButton />
 	    </nav>
 	);
     } else {
 	return (
 	    <nav className={`${styles.navloggedout}`}>
-							  NovelNotes
+			NovelNotes
 	    </nav>
 	);
     }
@@ -28,7 +29,7 @@ const Navbar: React.FC<{}> = () => {
     return (
 	<div>
 	    <SessionProvider>
-		<BaseNavbar />
+			<BaseNavbar />
 	    </SessionProvider>
 	</div>
     );
