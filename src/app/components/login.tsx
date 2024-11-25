@@ -1,13 +1,8 @@
 
-'use client';
+"use client";
 import React, { useState } from 'react';
 import styles from '../components/login.module.css';
 import { useRouter } from 'next/navigation';
-import { signIn, signOut } from "@/auth";
-
-async function doCredentialsLogin(email: string, password: string) {
-    return await signIn("credentials", { email, password, redirect: false });
-}
 
 const LoginPage: React.FC = () => {
 
@@ -18,7 +13,6 @@ const LoginPage: React.FC = () => {
     const onLoginSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         console.log("signing in...");
-		await doCredentialsLogin(email, password);
 		console.log("did the sign in");
 		router.push("/");
     }

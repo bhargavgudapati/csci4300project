@@ -38,22 +38,22 @@ const SignUp: React.FC<{}> = () => {
     }
 
     return (
-	<div>
-		 NOTE: THE CSS SHOULD BE FIXED HERE, VERY UGLY RN.
-	    <div>
-		<form onSubmit={onSignupSubmit}>
-		    <label>Username</label>
-		    <input type="text" placeholder="enter username here..." onChange={e => setNewUser(e.target.value)}/>
-		    <label>First Name</label>
-		    <input type="text" placeholder="enter your first name here..." onChange={e => setName(e.target.value)}/>
-		    <label>Email</label>
-		    <input type="email" placeholder="enter an email here..." onChange={e => setEmail(e.target.value)}/>
-		    <label>Password</label>
-		    <input type="password" placeholder="enter password here..." onChange={e => setPassword(e.target.value)}/>
-		    <button type="submit">Sign Up!</button>
-		</form>
-	    </div>
-	</div>
+		<div>
+			NOTE: THE CSS SHOULD BE FIXED HERE, VERY UGLY RN.
+			<div>
+			<form onSubmit={onSignupSubmit}>
+				<label>Username</label>
+				<input type="text" placeholder="enter username here..." onChange={e => setNewUser(e.target.value)}/>
+				<label>First Name</label>
+				<input type="text" placeholder="enter your first name here..." onChange={e => setName(e.target.value)}/>
+				<label>Email</label>
+				<input type="email" placeholder="enter an email here..." onChange={e => setEmail(e.target.value)}/>
+				<label>Password</label>
+				<input type="password" placeholder="enter password here..." onChange={e => setPassword(e.target.value)}/>
+				<button type="submit">Sign Up!</button>
+			</form>
+			</div>
+		</div>
     );
 }
 

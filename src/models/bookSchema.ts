@@ -3,7 +3,7 @@ import mongoose, { Schema, Document, Model } from "mongoose";
 
 interface IItem extends Document {
     title: string;
-    author?: string;
+    author: string;
 }
 
 const bookSchema = new Schema<IItem>({
@@ -13,7 +13,7 @@ const bookSchema = new Schema<IItem>({
     },
     author: {
         type: String,
-	required: true
+	    required: true
     }
 })
 
