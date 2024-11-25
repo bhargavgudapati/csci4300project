@@ -7,21 +7,22 @@ import { useRouter } from 'next/navigation';
 //creates new user and adds to the database
 async function createUser(username: string, password: string, email: string, firstname: string) {
     const response = await fetch('api/signup', {
-	method: 'POST',
-	headers: {
-	    'Content-Type': 'application/json',
-	},
-	body: JSON.stringify({
-	    firstname,
-	    username,
-	    email,
-	})
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify({
+			firstname,
+			username,
+			email,
+			password
+		})
     });
     return await response.json();
 }
 
 const SignUp: React.FC<{}> = () => {
-    const router = useRouter();
+	const router = useRouter();
     
     let [newUser, setNewUser] = useState("");
     let [newPassword, setPassword] = useState("");
@@ -29,11 +30,11 @@ const SignUp: React.FC<{}> = () => {
     let [newName, setName] = useState("");
 
     const onSignupSubmit = (e: React.FormEvent) => {
-	e.preventDefault();
-	console.log("creating new user");
-	createUser(newUser, newPassword, newEmail, newName)
-	console.log("success creating");
-	router.push('/login');
+		e.preventDefault();
+		console.log("creating new user");
+		createUser(newUser, newPassword, newEmail, newName)
+		console.log("success creating");
+		router.push('/login');
     }
 
     return (
