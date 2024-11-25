@@ -18,3 +18,9 @@ export async function middleware(request: any) {
 	return NextResponse.next();
     }
 }
+
+export const config = {
+    matcher: [
+	"/addbook"
+    ]
+}

@@ -15,7 +15,6 @@ async function createUser(username: string, password: string, email: string, fir
 	    firstname,
 	    username,
 	    email,
-	    password
 	})
     });
     return await response.json();

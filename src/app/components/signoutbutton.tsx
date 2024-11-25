@@ -11,7 +11,7 @@ const SignOutButton: React.FC<{}> = () => {
     };
 
     return (
-	<button onClick={handleSignOut} className={`${styles.signoutbutton}`}>Sign Out</button>
+	<button onClick={handleSignOut} className={`${styles.signoutbutton}`}>Sign Out</button> 
     );
 };
 
