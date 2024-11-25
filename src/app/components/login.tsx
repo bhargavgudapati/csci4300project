@@ -4,28 +4,20 @@ import React, { useState } from 'react';
 import styles from '../components/login.module.css';
 import Navbar from './navbar';
 import { useRouter } from 'next/navigation';
-import { useSession } from 'next-auth/react';
-
-async function doLogout() {
-    const router = useRouter();
-    console.log("logging out");
-    router.push("/login");
-    const x = () => {};
-    await x();;
-}
-
-async function doLogin() {
-    const router = useRouter();
-}
 
 const LoginPage: React.FC = () => {
 
     let [user, setUser] = useState("");
-
+    const router = useRouter();
+    
     const onLoginSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         alert("redirecting to " + user + "\'s page");
         console.log("signing in...");
+    }
+
+    const onSignupClick = () => {
+	router.push("/signup");
     }
 
     return (
@@ -46,7 +38,7 @@ const LoginPage: React.FC = () => {
 
 		<button
                     className={styles.signUpBtn}
-                    onClick={() => alert("Redirect to Sign Up")}
+                    onClick={onSignupClick}
 		>
                      Sign Up
 		</button>

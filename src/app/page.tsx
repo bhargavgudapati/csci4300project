@@ -15,7 +15,7 @@ const Page: React.FC = () => {
     useEffect(() => {
 	const fetchBooks = async () => {
 	    try {
-		const response = await fetch("/api/items");
+		const response = await fetch("/api/books");
 		if (!response.ok) {
 		    throw new Error("Failed to fetch books");
 		}
@@ -33,7 +33,7 @@ const Page: React.FC = () => {
 
     const deleteBook = async (id: string) => {
 	try {
-	    const response = await fetch(`/api/items/${id}`, {
+	    const response = await fetch(`/api/books/${id}`, {
 		method: "DELETE",
 	    });
 
