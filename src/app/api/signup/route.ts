@@ -1,8 +1,9 @@
 
 import connectMongoDB from "@/libs/mongodb";
 import User from "@/models/userSchema";
-import bcrypt from "bcryptjs";
 import { NextResponse, NextRequest } from "next/server";
+
+const bcrypt = require("bcryptjs");
 
 export async function POST(request: NextRequest) {
     await connectMongoDB();

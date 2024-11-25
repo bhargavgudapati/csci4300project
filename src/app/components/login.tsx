@@ -18,9 +18,9 @@ const LoginPage: React.FC = () => {
     const onLoginSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         console.log("signing in...");
-	await doCredentialsLogin(email, password);
-	console.log("did the sign in");
-	router.push("/");
+		await doCredentialsLogin(email, password);
+		console.log("did the sign in");
+		router.push("/");
     }
 
     const onSignupClick = () => {

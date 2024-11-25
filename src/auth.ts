@@ -3,7 +3,8 @@ import { authConfig } from "./auth.config";
 import NextAuth from "next-auth";
 import  CredentialsProvider  from "next-auth/providers/credentials";
 import User from "./models/userSchema";
-import bcrypt from "bcryptjs";
+
+const bcrypt = require("bcryptjs");
 
 export const {
     handlers: { GET, POST },
@@ -15,15 +16,15 @@ export const {
     providers: [
 	CredentialsProvider({
 	    credentials: {
-		email: {},
-		password: {}
+			email: {},
+			password: {}
 	    },
 	    async authorize(credentials) {
 		if (!credentials) {
 		    return null;
 		} else {
 		    try {
-			const user = await User.findOne({ email: credentials.email }).lean();
+				const user = await User.findOne({ email: credentials.email }).lean();
 			if (user) {
 			    const isMatch = await bcrypt.compare(credentials.password, user.password);
 			    if (isMatch) {
@@ -34,8 +35,8 @@ export const {
 				    username: user.username				    
 				};
 			    } else {
-				console.log("email or password not correct");
-				return null;
+					console.log("email or password not correct");
+					return null;
 			    }
 			} else {
 			    console.log("the user was not found");
