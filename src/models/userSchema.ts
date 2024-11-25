@@ -1,7 +1,7 @@
 
 import mongoose, { Schema, Document, Model } from "mongoose";
 
-interface IItem extends Document {
+interface IItem extends Document{
     firstname: string,
     username: string,
     email: string,
@@ -31,4 +31,5 @@ const userSchema = new Schema<IItem>({
 });
 
 const User: Model<IItem> = mongoose.models.User || mongoose.model<IItem>("User", userSchema);
+
 export default User;
