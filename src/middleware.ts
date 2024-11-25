@@ -5,23 +5,19 @@ import NextAuth from "next-auth";
 
 const { auth } = NextAuth(authConfig);
 
-export async function middleware(request: any) {
-    const { nextURL } = request;
-    const session = await auth();
-    const isAuthenticated = (session?.user) ? true : false;
-    console.log(isAuthenticated, nextURL.pathname);
-
+export async function middleware(request) {
     const reqURL = new URL(request.url);
-    if (!isAuthenticated && reqURL.pathname !=="/login" && reqURL.pathname !=="/signup") {
-	    return NextResponse.redirect(new URL("/login", request.url));
-    } else {
-	    return NextResponse.next();
+
+    const session = await auth();
+    const isAuthenticated = session?.user ? true : false;
+
+    console.log(`User authenticated: ${isAuthenticated}, Path: ${reqURL.pathname}`);
+    if (!isAuthenticated && (reqURL.pathname === "/" || reqURL.pathname === "/addbook")) {
+        return NextResponse.redirect(new URL("/login", reqURL));
     }
+    return NextResponse.next();
 }
 
 export const config = {
-    matcher: [
-	"/addbook",
-    "/"
-    ]
-}
+    matcher: ["/", "/addbook"],
+};
