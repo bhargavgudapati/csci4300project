@@ -1,10 +1,9 @@
+
 import connectMongoDB from "@/libs/mongodb";
-import Item from "@/models/itemSchema";
+import Book from "@/models/bookSchema";
 import { NextResponse } from "next/server";
 import { NextRequest } from "next/server";
 import mongoose from "mongoose";
-import { Route } from "next";
-import { title } from "process";
 
 interface RouteParams {
     params: { id: string };
@@ -13,7 +12,7 @@ interface RouteParams {
 export async function GET(request:NextRequest, { params }:RouteParams) {
     const { id } = params;
     await connectMongoDB();
-    const item = await Item.findOne({ _id: id });
+    const item = await Book.findOne({ _id: id });
     return NextResponse.json({ item }, { status: 200 });
 }
 
@@ -21,7 +20,7 @@ export async function PUT(request:NextRequest, { params }:RouteParams ) {
     const { id } = params;
     const { title: title, author: author } = await request.json();
     await connectMongoDB();
-    await Item.findByIdAndUpdate(id, { title, author });
+    await Book.findByIdAndUpdate(id, { title, author });
     return NextResponse.json({ message: "Item Updated" }, { status: 200 });
 }
 

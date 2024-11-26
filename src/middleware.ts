@@ -15,6 +15,7 @@ export async function middleware(request: any) {
     if (!isAuthenticated && (reqURL.pathname === "/" || reqURL.pathname === "/addbook")) {
         return NextResponse.redirect(new URL("/login", reqURL));
     }
+
     return NextResponse.next();
 }
 
