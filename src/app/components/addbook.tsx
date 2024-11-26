@@ -5,6 +5,7 @@ import styles from './addbook.module.css';
 import { useRouter } from 'next/navigation';
 import { libraryButtonStyles } from './mylibrarybutton';
 import SearchBooks from './searchbooks';
+import { SessionProvider } from 'next-auth/react';
 
 interface openlibBook {
 	title: string,
@@ -43,10 +44,6 @@ interface Book {
 	title: string;
 	author: string;
 	bookStatus: string;
-}
-
-interface AddBookProps {
-	onAddBook: (newBook: Book) => void; // Pass the new book to the parent
 }
 
 const AddBook: React.FC = () => {
@@ -117,7 +114,9 @@ const AddBook: React.FC = () => {
 				</button>
 			</div>
 			<div>
-				<SearchBooks bookList={sendBooks} />
+				<SessionProvider>
+					<SearchBooks bookList={sendBooks} />
+				</SessionProvider>
 			</div>
 			{/* Error Popup */}
 			{showError && (

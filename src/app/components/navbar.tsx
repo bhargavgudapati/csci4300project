@@ -1,4 +1,5 @@
 
+"use client";
 import styles from './navbar.module.css';
 import React from 'react';
 import SignOutButton from './signoutbutton';

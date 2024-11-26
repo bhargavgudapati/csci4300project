@@ -1,5 +1,8 @@
 
+"use client";
+import { useSession } from "next-auth/react"
 import Image from "next/image"
+import { useRouter } from "next/navigation";
 
 interface AddBookCardProps {
     title: string,
@@ -7,10 +10,30 @@ interface AddBookCardProps {
     image: string
 }
 
-const AddBookCard: React.FC<AddBookCardProps> = ({ title, author, image }) => {
+const AddBookCard: React.FC<AddBookCardProps> = ({ title, author, image}) => {
+    let { data, status } = useSession();
+    let router = useRouter();
+    const addToDatabase = async (title: string, author: string, image: string) => {
+        console.log("the id is", data?.user?.email);
+		let response = await fetch("/api/books", {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({
+				title,
+                author,
+                image,
+                owner: data?.user?.email,
+                status: "Want to Read"
+			})
+        });
+        return await response.json();
+    }
 
-    const handleClick = () => {
-        console.log("");
+    const handleClick = async () => {
+        await addToDatabase(title, author, image);
+        router.push("/");
     }
 
     return (

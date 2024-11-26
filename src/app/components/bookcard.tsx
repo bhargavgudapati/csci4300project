@@ -17,20 +17,20 @@ const BookCard: React.FC<BookCardProps> = ({ book, deleteBook, updateBookStatus 
   const handleStatusChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const newStatus = e.target.value;
     setBookStatus(newStatus);
-    updateBookStatus(book.id, newStatus); // Notify parent of status change
+    updateBookStatus(book._id, newStatus); // Notify parent of status change
   };
-
+  console.log(book._id);
   return (
     <div className={styles.bookCard}>
       <Image
         alt="book"
-        src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse2.mm.bing.net%2Fth%3Fid%3DOIP.S1Acr290KfA4gxDLDvKojwHaE8%26pid%3DApi&f=1&ipt=fe1be22d849fcde62d4a6cce00832d54f3771ba0a0d432152f2bdd4551a91686&ipo=images"
+        src={book.image}
         width="200"
         height="200"
       />
        <button
         className={styles.deleteButton}
-        onClick={() => deleteBook(book.id)}
+        onClick={() => deleteBook(book._id)}
         title="Delete Book"
       >
         X

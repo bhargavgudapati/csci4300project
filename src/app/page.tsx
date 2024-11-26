@@ -1,3 +1,4 @@
+
 "use client";
 
 import React, { useEffect, useState } from "react";
@@ -19,8 +20,8 @@ const Page: React.FC = () => {
         if (!response.ok) {
           throw new Error("Failed to fetch books");
         }
-        const data = await response.json();
-        setBooks(data.items || []);
+        const booksReturned = await response.json();
+        setBooks(booksReturned.items || []);
         setLoading(false);
       } catch (err: any) {
         setError(err.message);
@@ -31,8 +32,9 @@ const Page: React.FC = () => {
   }, []);
 
   const deleteBook = async (id: string) => {
+    console.log("the id is " + id);
     try {
-      const response = await fetch(`/api/books/${id}`, {
+      const response = await fetch("/api/books/" + id, {
         method: "DELETE",
       });
 
@@ -40,7 +42,7 @@ const Page: React.FC = () => {
         throw new Error("Failed to delete book");
       }
 
-      setBooks((prevBooks) => prevBooks.filter((book) => book.id !== id));
+      setBooks((prevBooks) => prevBooks.filter((book) => book._id !== id));
     } catch (error) {
       console.error("Error deleting book:", error);
     }
@@ -50,28 +52,26 @@ const Page: React.FC = () => {
     router.push("/addbook");
   };
 
-	const updateBookStatus = (id: string, newStatus: string) => {
-		setBooks((prevBooks) =>
-		  prevBooks.map((book) =>
-			book.id === id ? { ...book, status: newStatus } : book
-		  )
-		);
-	  };
-
-    if (loading) return <div>Loading...</div>;
-    if (error) return <div>Error: {error}</div>;
-
-    return (
-		<div>
-		<Navbar />
-		<Library
-		  books={books}
-		  deleteBook={deleteBook}
-		  handleAddBook={handleAddBook}
-		  updateBookStatus={updateBookStatus} // Pass this to Library
-		/>
-	  </div>
+  const updateBookStatus = (id: string, newStatus: string) => {
+    setBooks((prevBooks) =>
+      prevBooks.map((book) =>
+        book._id === id ? { ...book, status: newStatus } : book
+      )
     );
+  };
+
+  if (error) return <div>Error: {error}</div>;
+  return (
+    <div>
+      <Navbar />
+      <Library
+        books={books}
+        deleteBook={deleteBook}
+        handleAddBook={handleAddBook}
+        updateBookStatus={updateBookStatus} // Pass this to Library
+      />
+    </div>
+  );
 }
 
 export default Page;

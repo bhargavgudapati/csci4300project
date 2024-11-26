@@ -4,6 +4,9 @@ import mongoose, { Schema, Document, Model } from "mongoose";
 interface IItem extends Document {
     title: string;
     author: string;
+    image: string;
+    owner: string;
+    status: string;
 }
 
 const bookSchema = new Schema<IItem>({
@@ -14,6 +17,18 @@ const bookSchema = new Schema<IItem>({
     author: {
         type: String,
 	    required: true
+    },
+    image: {
+        type: String,
+        required: true
+    },
+    owner: {
+        type: String,
+        required: true
+    },
+    status: {
+        type: String,
+        required: true
     }
 })
 
