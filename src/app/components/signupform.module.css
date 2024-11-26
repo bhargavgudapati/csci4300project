@@ -1,7 +1,7 @@
 
 .form-container {
     background-color: #fff;
-    padding: 20px 30px;
+    padding: 20px 20px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     width: 100%;
@@ -42,7 +42,7 @@
 
 .signup-form button {
     width: 100%;
-    padding: 12px;
+    padding: 10px;
     background-color: #007bff;
     border: none;
     border-radius: 5px;

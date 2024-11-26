@@ -14,11 +14,12 @@ interface SearchBooksProps {
 }
 
 const SearchBooks: React.FC<SearchBooksProps> = ({bookList}) => {
+    const books = bookList.map((x) => {
+        return <AddBookCard title={x.title} author={x.author} image={x.image} key={Math.random()}/>
+    });
     return (
         <div className={styles.addBookList}>
-            {bookList.map((x) => {
-                return <AddBookCard title={x.title} author={x.author} image={x.image} key={Math.random()}/>
-            })}
+            {books.length > 0 ? books : <h2>No books were found.</h2>}
         </div>
     );
 }

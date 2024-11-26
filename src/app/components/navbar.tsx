@@ -13,10 +13,10 @@ const BaseNavbar: React.FC<{}> = () => {
 		return (
 			<nav className={`${styles.nav}`}>
 				NovelNotes
-				<div>
-					Welcome, {firstname}!
+				<span className={`${styles.leftside}`}>
+					<span className={styles.loggedintext}>Welcome, {firstname}!</span>
 					<SignOutButton />
-				</div>
+				</span>
 			</nav>
 		);
     } else {
