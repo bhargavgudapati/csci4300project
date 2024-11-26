@@ -50,19 +50,28 @@ const Page: React.FC = () => {
     router.push("/addbook");
   };
 
-  //if (loading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error}</div>;
+	const updateBookStatus = (id: string, newStatus: string) => {
+		setBooks((prevBooks) =>
+		  prevBooks.map((book) =>
+			book.id === id ? { ...book, status: newStatus } : book
+		  )
+		);
+	  };
 
-  return (
-    <div>
-      <Navbar />;
-      <Library
-        books={books}
-        deleteBook={deleteBook}
-        handleAddBook={handleAddBook}
-      />
-    </div>
-  );
-};
+    if (loading) return <div>Loading...</div>;
+    if (error) return <div>Error: {error}</div>;
+
+    return (
+		<div>
+		<Navbar />
+		<Library
+		  books={books}
+		  deleteBook={deleteBook}
+		  handleAddBook={handleAddBook}
+		  updateBookStatus={updateBookStatus} // Pass this to Library
+		/>
+	  </div>
+    );
+}
 
 export default Page;
