@@ -1,5 +1,7 @@
 
 
+
+
 async function getBooks(bookTitle: string, bookAuthor: string) {
     const response = await fetch("/api/openlibrary", {
         method: 'POST',
@@ -11,7 +13,6 @@ async function getBooks(bookTitle: string, bookAuthor: string) {
             bookTitle
 		})
     });
-    
 }
 
 const SearchBooks: React.FC<{}> = () => {
