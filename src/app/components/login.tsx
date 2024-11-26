@@ -14,7 +14,11 @@ const LoginPage: React.FC = () => {
     const onLoginSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         console.log("signing in...");
-		doCredentialsLogin(email, password);
+		if (await doCredentialsLogin(email, password) == null) {
+			router.push("/login");
+		} else {
+			router.push("/");
+		}
 		console.log("did the sign in");
     }
 
