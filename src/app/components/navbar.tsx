@@ -12,8 +12,10 @@ const BaseNavbar: React.FC<{}> = () => {
 		return (
 			<nav className={`${styles.nav}`}>
 				NovelNotes
-				Welcome, {firstname}!
-				<SignOutButton />
+				<div>
+					Welcome, {firstname}!
+					<SignOutButton />
+				</div>
 			</nav>
 		);
     } else {
