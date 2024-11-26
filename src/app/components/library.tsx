@@ -9,9 +9,14 @@ interface LibraryProps {
   books: Book[];
   deleteBook: (id: string) => Promise<void>;
   handleAddBook: () => void;
+  updateBookStatus: (id: string, newStatus: string) => void;
 }
 
-const Library: React.FC<LibraryProps> = ({ books = [], deleteBook, handleAddBook }) => {
+
+
+
+const Library: React.FC<LibraryProps> = ({ books = [], deleteBook, handleAddBook, updateBookStatus }) => {
+  
   return (
     <div className={styles.libraryContainer}>
       <h2 className={styles.libraryTitle}>My Library</h2>
@@ -25,10 +30,15 @@ const Library: React.FC<LibraryProps> = ({ books = [], deleteBook, handleAddBook
 
       {/* Book List */}
       <div className={styles.bookList}>
-        {books.length > 0 ? (
-         books.map((book, index) => (
-          <BookCard key={book.id || index} book={book} deleteBook={deleteBook} />
-        ))
+      {books.length > 0 ? (
+          books.map((book, index) => (
+            <BookCard
+              key={book.id || index}
+              book={book}
+              deleteBook={deleteBook}
+              updateBookStatus={updateBookStatus} // Pass updateBookStatus to BookCard
+            />
+          ))
         ) : (
           <p>No books available.</p>
         )}

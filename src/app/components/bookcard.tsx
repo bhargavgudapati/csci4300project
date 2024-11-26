@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './bookcard.module.css';
 import Image from 'next/image';
 import { Book } from './bookinterface';
@@ -8,9 +8,18 @@ import { Book } from './bookinterface';
 interface BookCardProps {
   book: Book;
   deleteBook: (id: string) => void;
+  updateBookStatus: (id: string, status: string) => void;
 }
 
-const BookCard: React.FC<BookCardProps> = ({ book, deleteBook }) => {
+const BookCard: React.FC<BookCardProps> = ({ book, deleteBook, updateBookStatus }) => {
+  const [bookStatus, setBookStatus] = useState(book.status || 'Want to Read');
+
+  const handleStatusChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const newStatus = e.target.value;
+    setBookStatus(newStatus);
+    updateBookStatus(book.id, newStatus); // Notify parent of status change
+  };
+
   return (
     <div className={styles.bookCard}>
       <Image
@@ -28,6 +37,13 @@ const BookCard: React.FC<BookCardProps> = ({ book, deleteBook }) => {
       </button>
       <h3>{book.title}</h3>
       <p>{book.author}</p>
+
+      <label>Status:</label>
+      <select value={bookStatus} onChange={handleStatusChange}>
+        <option value="Want to Read">Want to Read</option>
+        <option value="Reading">Reading</option>
+        <option value="Read">Read</option>
+      </select>
     </div>
   );
 };

@@ -10,18 +10,24 @@ interface Book {
     id: string;
     title: string;
     author: string;
+	bookStatus: string;
 }
 
-const AddBook: React.FC = () => {
+interface AddBookProps {
+	onAddBook: (newBook: Book) => void; // Pass the new book to the parent
+  }
+
+ const AddBook: React.FC = () => {
     const [title, setTitle] = useState('');
     const [author, setAuthor] = useState('');
     const [showError, setShowError] = useState(false); // State to show error popup
     const router = useRouter();
+	const [bookStatus, setBookStatus] = useState('Want to Read');
 
     const handleSubmit = async (e: React.FormEvent) => {
 	e.preventDefault();
 
-	const newBook: Omit<Book, 'id'> = { title, author };
+	const newBook: Omit<Book, 'id'> = { title, author, bookStatus };
 
 	const response = await fetch('/api/books', {
 	    method: 'POST',
@@ -69,6 +75,20 @@ const AddBook: React.FC = () => {
 			    required
 			/>
 		    </div>
+
+			<div className={styles.formGroup}>
+            <label htmlFor="status">Status</label>
+            <select
+              id="status"
+              value={bookStatus}
+              onChange={(e) => setBookStatus(e.target.value)}
+            >
+              <option value="Want to Read">Want to Read</option>
+              <option value="Reading">Reading</option>
+              <option value="Read">Read</option>
+            </select>
+          </div>
+
 		    <button type="submit" className={styles.submitButton}>Add Book</button>
 		</form>
 		<button
