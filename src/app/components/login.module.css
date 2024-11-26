@@ -80,3 +80,7 @@
 .signUpBtn:hover {
     background-color: #059669;
 }
+
+.error p {
+    color: red;
+}
