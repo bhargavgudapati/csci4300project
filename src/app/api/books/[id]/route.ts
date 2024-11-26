@@ -38,7 +38,7 @@ export async function DELETE(
     }
   
     try {
-      const deletedItem = await Item.findByIdAndDelete(id);
+      const deletedItem = await Book.findByIdAndDelete(id);
   
       if (!deletedItem) {
         return NextResponse.json({ message: "Book not found" }, { status: 404 });

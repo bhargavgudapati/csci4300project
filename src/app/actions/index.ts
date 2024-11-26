@@ -7,7 +7,7 @@ export async function doCredentialsLogin(email: string, password: string) {
         const response = await signIn("credentials", { email, password, redirect: false });
         return response;
     } catch (error: any) {
-        throw error;
+        return null;
     }
 }
 

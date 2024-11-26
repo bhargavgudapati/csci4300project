@@ -29,7 +29,7 @@
     color: #666;
 }
 
-.loginPage input[type="text"],
+.loginPage input[type="email"],
 .loginPage input[type="password"] {
     width: 96%;
     padding: 2%;
@@ -39,7 +39,7 @@
     border-radius: 4px;
 }
 
-.loginPage input[type="text"]:focus,
+.loginPage input[type="email"]:focus,
 .loginPage input[type="password"]:focus {
     outline: none;
     border-color: #3b82f6;
