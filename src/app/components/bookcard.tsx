@@ -12,13 +12,14 @@ interface BookCardProps {
 }
 
 const BookCard: React.FC<BookCardProps> = ({ book, deleteBook, updateBookStatus }) => {
-  const [bookStatus, setBookStatus] = useState(book.status || 'Want to Read');
+  const [bookStatus, setBookStatus] = useState(book.status);
 
-  const handleStatusChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleStatusChange = async (e: React.ChangeEvent<HTMLSelectElement>) => {
     const newStatus = e.target.value;
     setBookStatus(newStatus);
     updateBookStatus(book._id, newStatus); // Notify parent of status change
   };
+
   console.log(book._id);
   return (
     <div className={styles.bookCard}>

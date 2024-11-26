@@ -90,7 +90,7 @@ const AddBook: React.FC = () => {
 							required
 						/>
 					</div>
-
+{/* 					
 					<div className={styles.formGroup}>
 						<label htmlFor="status">Status</label>
 						<select
@@ -102,7 +102,7 @@ const AddBook: React.FC = () => {
 							<option value="Reading">Reading</option>
 							<option value="Read">Read</option>
 						</select>
-					</div>
+					</div> */}
 
 					<button type="submit" className={styles.submitButton}>Search For Books!</button>
 				</form>

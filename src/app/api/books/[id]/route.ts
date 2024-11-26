@@ -17,7 +17,7 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
 }
 
 export async function PUT(request: NextRequest, { params }: RouteParams) {
-  const { id } = params;
+  const { id } = await params;
   const { title: title, author: author, image: image, owner: owner, status: status } = await request.json();
   await connectMongoDB();
   await Book.findByIdAndUpdate(id, { title, author, image, owner, status });

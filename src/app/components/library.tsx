@@ -12,9 +12,6 @@ interface LibraryProps {
   updateBookStatus: (id: string, newStatus: string) => void;
 }
 
-
-
-
 const Library: React.FC<LibraryProps> = ({ books = [], deleteBook, handleAddBook, updateBookStatus }) => {
   
   return (
@@ -33,7 +30,7 @@ const Library: React.FC<LibraryProps> = ({ books = [], deleteBook, handleAddBook
       {books.length > 0 ? (
           books.map((book, index) => (
             <BookCard
-              key={book.id || index}
+              key={book._id || index}
               book={book}
               deleteBook={deleteBook}
               updateBookStatus={updateBookStatus} // Pass updateBookStatus to BookCard

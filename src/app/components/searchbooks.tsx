@@ -1,8 +1,7 @@
 
 "use client";
-import { useSession } from "next-auth/react";
 import AddBookCard from "./addbookcard";
-import { useRouter } from "next/router";
+import styles from "./searchbooks.module.css";
 
 interface openlibBook {
     title: string,
@@ -16,7 +15,7 @@ interface SearchBooksProps {
 
 const SearchBooks: React.FC<SearchBooksProps> = ({bookList}) => {
     return (
-        <div>
+        <div className={styles.addBookList}>
             {bookList.map((x) => {
                 return <AddBookCard title={x.title} author={x.author} image={x.image} key={Math.random()}/>
             })}

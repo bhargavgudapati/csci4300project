@@ -32,7 +32,6 @@ const Page: React.FC = () => {
   }, []);
 
   const deleteBook = async (id: string) => {
-    console.log("the id is " + id);
     try {
       const response = await fetch("/api/books/" + id, {
         method: "DELETE",
@@ -52,24 +51,41 @@ const Page: React.FC = () => {
     router.push("/addbook");
   };
 
-  const updateBookStatus = (id: string, newStatus: string) => {
+  const updateBookStatus = async (id: string, newStatus: string) => {
     setBooks((prevBooks) =>
-      prevBooks.map((book) =>
-        book._id === id ? { ...book, status: newStatus } : book
-      )
-    );
+      prevBooks.map((book) => {
+        if (book._id === id) {
+          return book = { ...book, status: newStatus };
+        } else {
+          return book;
+        }
+      }
+      ));
+    const responsefromget = await fetch("/api/books/" + id);
+    const bookToChange = await responsefromget.json();
+    const responsefromput = await fetch("/api/books/" + id, {
+      method: "PUT",
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        status: newStatus
+      })
+    })
   };
 
   if (error) return <div>Error: {error}</div>;
   return (
     <div>
       <Navbar />
-      <Library
-        books={books}
-        deleteBook={deleteBook}
-        handleAddBook={handleAddBook}
-        updateBookStatus={updateBookStatus} // Pass this to Library
-      />
+
+      {loading ? <h1>Loading your library...</h1> : 
+        <Library
+          books={books}
+          deleteBook={deleteBook}
+          handleAddBook={handleAddBook}
+          updateBookStatus={updateBookStatus} // Pass this to Library
+        />}
     </div>
   );
 }

@@ -3,6 +3,7 @@
 import { useSession } from "next-auth/react"
 import Image from "next/image"
 import { useRouter } from "next/navigation";
+import styles from './addbookcard.module.css';
 
 interface AddBookCardProps {
     title: string,
@@ -37,7 +38,7 @@ const AddBookCard: React.FC<AddBookCardProps> = ({ title, author, image}) => {
     }
 
     return (
-        <div>
+        <div className={styles.addBookCard}>
             <Image
                 alt="book"
                 src={image}
