@@ -1,25 +1,25 @@
 
+"use client";
 
+import AddBookCard from "./addbookcard";
 
-
-async function getBooks(bookTitle: string, bookAuthor: string) {
-    const response = await fetch("/api/openlibrary", {
-        method: 'POST',
-		headers: {
-			'Content-Type': 'application/json',
-		},
-		body: JSON.stringify({
-            bookAuthor,
-            bookTitle
-		})
-    });
+interface openlibBook {
+    title: string,
+    author: string,
+    image: string
 }
 
-const SearchBooks: React.FC<{}> = () => {
+interface SearchBooksProps {
+    bookList: openlibBook[]
+}
 
+const SearchBooks: React.FC<SearchBooksProps> = ({bookList}) => {
+    
     return (
         <div>
-            hello
+            {bookList.map((x) => (<AddBookCard title={x.title} author={x.author} image={x.image} key={Math.random()} />))}
         </div>
     );
 }
+
+export default SearchBooks;
