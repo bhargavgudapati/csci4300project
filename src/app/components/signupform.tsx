@@ -28,18 +28,32 @@ const SignUp: React.FC<{}> = () => {
     let [newPassword, setPassword] = useState("");
     let [newEmail, setEmail] = useState("");
     let [newName, setName] = useState("");
+    let [error, setError] = useState("");
 
-    const onSignupSubmit = (e: React.FormEvent) => {
+    const onSignupSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
 		console.log("creating new user");
-		createUser(newUser, newPassword, newEmail, newName)
-		console.log("success creating");
-		router.push('/login');
+		let response = await createUser(newUser, newPassword, newEmail, newName);
+        console.log(response);
+        if (response.success) {
+            console.log("successfully made the user");
+            router.push('/login');
+        } else {
+            console.log("there was an error");
+            setError("That username or email was already taken!");
+            setEmail("");
+            setNewUser("");
+        }
+    }
+
+    const onBackToLogin = () => {
+        router.push('/login');
     }
 
     return (
         <div className={styles['form-container']}>
             <form className={styles['signup-form']} onSubmit={onSignupSubmit}>
+                <div className={styles['errortext']}>{error}</div>
                 <h2>Sign Up</h2>
                 <label>Username</label>
                 <input
@@ -65,7 +79,9 @@ const SignUp: React.FC<{}> = () => {
                     placeholder="Enter password here"
                     onChange={(e) => setPassword(e.target.value)}
                 />
-                <button type="submit">Sign Up!</button>
+                <button type="submit" id='submitbutton' className={styles['createbutton']}>Sign Up!</button>
+                <button type="button" onClick={onBackToLogin} className={styles['backbutton']}>Back to login...</button>
+
             </form>
         </div>
     );
