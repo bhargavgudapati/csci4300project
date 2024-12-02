@@ -5,7 +5,7 @@ import styles from './signupform.module.css';
 import { useRouter } from 'next/navigation';
 
 //creates new user and adds to the database
-async function createUser(username: string, password: string, email: string, firstname: string) {
+async function createUser(username: string, password: string, imagelink: string, email: string, firstname: string) {
     const response = await fetch('api/signup', {
 		method: 'POST',
 		headers: {
@@ -14,6 +14,7 @@ async function createUser(username: string, password: string, email: string, fir
 		body: JSON.stringify({
 			firstname,
 			username,
+            imagelink,
 			email,
 			password
 		})
@@ -28,12 +29,13 @@ const SignUp: React.FC<{}> = () => {
     let [newPassword, setPassword] = useState("");
     let [newEmail, setEmail] = useState("");
     let [newName, setName] = useState("");
+    let [newImagelink, setImagelink] = useState("");
     let [error, setError] = useState("");
 
     const onSignupSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
 		console.log("creating new user");
-		let response = await createUser(newUser, newPassword, newEmail, newName);
+		let response = await createUser(newUser, newPassword, newImagelink, newEmail, newName);
         console.log(response);
         if (response.success) {
             console.log("successfully made the user");
@@ -66,6 +68,12 @@ const SignUp: React.FC<{}> = () => {
                     type="text"
                     placeholder="Enter your first name"
                     onChange={(e) => setName(e.target.value)}
+                />
+                <label>Profile picture</label>
+                <input 
+                    type="url"
+                    placeholder='Enter a link to your profile picture'
+                    onChange={(e) => setImagelink(e.target.value)}
                 />
                 <label>Email</label>
                 <input

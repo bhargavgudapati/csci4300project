@@ -4,6 +4,7 @@ import mongoose, { Schema, Document, Model } from "mongoose";
 interface IItem extends Document{
     firstname: string,
     username: string,
+    imagelink: string,
     email: string,
     password: string
 }
@@ -18,6 +19,10 @@ const userSchema = new Schema<IItem>({
         type: String,
         required: true,
         unique: true
+    },
+    imagelink: {
+        type: String,
+        required: true
     },
     email: {
         type: String,

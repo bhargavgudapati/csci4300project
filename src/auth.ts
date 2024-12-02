@@ -32,7 +32,8 @@ export const {
 							return {
 								id: user._id.toString(),
 								email: user.email,
-								name: user.firstname			    
+								name: user.firstname,
+								image: user.imagelink	    
 							};
 						} else {
 							console.log("email or password not correct");
