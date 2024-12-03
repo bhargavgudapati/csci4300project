@@ -18,14 +18,12 @@ const Library: React.FC<LibraryProps> = ({ books = [], deleteBook, handleAddBook
     <div className={styles.libraryContainer}>
       <h2 className={styles.libraryTitle}>My Library</h2>
 
-      {/* Add Book Button */}
       <div className={styles.addButtonContainer}>
         <button className={styles.addBookButton} onClick={handleAddBook}>
           Add Book
         </button>
       </div>
 
-      {/* Book List */}
       <div className={styles.bookList}>
       {books.length > 0 ? (
           books.map((book, index) => (

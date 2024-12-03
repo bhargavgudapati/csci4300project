@@ -27,9 +27,9 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
 
 export async function DELETE(
   req: Request,
-  { params }: RouteParams // Correctly access `params`
+  { params }: RouteParams
 ) {
-  const { id } = await params; // Destructure `id` from `params`
+  const { id } = await params;
 
   await connectMongoDB();
 
